@@ -10,11 +10,12 @@ export const meta: V2_MetaFunction = () => {
 export default function Index() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>Welcome to Remix</h1>
+      <h1 className="text-5x1 text-red-500">Welcome to Remix</h1>
       <ul>
         <li>
           <a
             target="_blank"
+            className="text-5x1 underline text-blue-500"
             href="https://remix.run/tutorials/blog"
             rel="noreferrer"
           >
@@ -24,6 +25,7 @@ export default function Index() {
         <li>
           <a
             target="_blank"
+            className="text-5x1 underline text-blue-500"
             href="https://remix.run/tutorials/jokes"
             rel="noreferrer"
           >
