@@ -1,3 +1,5 @@
+import { redirect } from "@remix-run/node";
+
 export type Movie = {
   imageurl: string[];
   genre: string[];
@@ -8,6 +10,15 @@ export type Movie = {
   synopsis: string;
   type: string;
 };
+
+export type CustomError = {
+  search: boolean;
+};
+
+export async function searchMovie(searchFild: string) {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  return redirect("/topmovies/searched");
+}
 
 export function getTopMovies() {
   const movies: Movie[] = [
