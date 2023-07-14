@@ -18,7 +18,7 @@ export async function action({ request }: ActionArgs) {
   let errors = { search: false };
   if (searchFild.trim() == "") errors.search = true;
   if (Object.values(errors).some((error) => error)) return errors;
-  return searchMovie(searchFild);
+  return redirect(`/topmovies/${searchFild}`);
 }
 
 function Search() {
@@ -28,7 +28,14 @@ function Search() {
 
   return (
     <div className="max-w-md mx-auto bg-gray-100 pb-9">
-      <div className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden">
+      <div
+        className="relative flex items-center w-full h-12 rounded-lg focus-within:shadow-lg bg-white overflow-hidden"
+        style={
+          errors?.search
+            ? { border: "1px solid rgb(185, 28, 28)" }
+            : { border: "1px solid rgb(168, 85, 247)" }
+        }
+      >
         <Form method="post" className="w-full h-full flex">
           <button
             className={
@@ -46,6 +53,11 @@ function Search() {
               stroke="currentColor"
             >
               <path
+                style={
+                  errors?.search
+                    ? { stroke: "rgb(185, 28, 28)" }
+                    : { stroke: "rgb(168, 85, 247)" }
+                }
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
