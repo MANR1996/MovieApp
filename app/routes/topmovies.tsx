@@ -7,6 +7,7 @@ import {
 } from "@remix-run/react";
 import { getTopMovies, Movie, CustomError } from "~/topmovies";
 import { ActionArgs, LoaderArgs, json, redirect } from "@remix-run/node";
+import defaultImage from "../../public/defaultImage.webp";
 
 export async function loader({ request }: LoaderArgs) {
   return getTopMovies();
@@ -120,7 +121,7 @@ function TopMovies() {
                         src={
                           movie.imageurl && movie.imageurl.length > 0
                             ? movie.imageurl[0]
-                            : "https://m.media-amazon.com/images/M/MV5BNzY3YTUwYTQtNjkwNy00OTAyLWE0OWEtYmE3MGIyOWZkODY1XkEyXkFqcGdeQXVyMjkyNzYwMTc@._V1_UX182_CR0,0,182,268_AL_.jpg"
+                            : defaultImage
                         }
                         alt={movie.title}
                         className="cara h-full w-full object-cover object-center"
