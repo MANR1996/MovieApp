@@ -25,7 +25,6 @@ export async function signUpAction(
 
   try {
     const response = await fetch(url, options);
-    console.log("response", response);
     if (!response.ok) {
       // throw new Error(
       //   `Error al crear la cuenta}": ${response.status} ${response.statusText}`
@@ -64,7 +63,6 @@ export async function signInAction(email: string, password: string) {
 
   try {
     const response = await fetch(url, options);
-    console.log("response", response);
     if (!response.ok) {
       const data = await response.json();
       return {

@@ -1,5 +1,5 @@
 import { redirect } from "@remix-run/node";
-import { waitOneSecond } from "./utils";
+import { delayFetch } from "./utils";
 
 export type Movie = {
   imageurl: string[];
@@ -94,9 +94,9 @@ const results = {
 
 const movies: Movie[] = [
   {
-    // imageurl: [
-    //   "https://m.media-amazon.com/images/M/MV5BNzY3YTUwYTQtNjkwNy00OTAyLWE0OWEtYmE3MGIyOWZkODY1XkEyXkFqcGdeQXVyMjkyNzYwMTc@._V1_UX182_CR0,0,182,268_AL_.jpg",
-    // ],
+    imageurl: [
+      "https://m.media-amazon.com/images/M/MV5BNzY3YTUwYTQtNjkwNy00OTAyLWE0OWEtYmE3MGIyOWZkODY1XkEyXkFqcGdeQXVyMjkyNzYwMTc@._V1_UX182_CR0,0,182,268_AL_.jpg",
+    ],
     genre: ["Action", "Adventure", "Animation"],
     imdbid: "tt9580138",
     title: "Mortal Kombat Legends: Scorpion's Revenge",
@@ -149,33 +149,23 @@ export async function getTopMovies() {
   };
 
   try {
-    // Obtener la lista de géneros.
+    // return { movies, genre: 'action' }
     const genreUrl = `${baseUrl}/getParams?param=genre`;
-    await waitOneSecond();
-    // const genreResponse = await fetch(genreUrl, { headers });
-    // const genreList = await genreResponse.json();
-    // const genre = genreList[Math.floor(Math.random() * genreList.length)];
-
-    // // Obtener la lista de películas del género aleatorio.
-
-    // const movieUrl = `${baseUrl}/advancedsearch?end_year=2020&genre=${genre}&type=movie&sort=highestrated&page=1`;
-    await waitOneSecond();
-    // const movieResponse = await fetch(movieUrl, { headers });
-    // if (!movieResponse.ok) {
-    //   throw new Error(
-    //     `Error al buscar las mejores películas de ${genre}: ${movieResponse.status} ${movieResponse.statusText}`
-    //   );
-    // }
-    // const movieList = await movieResponse.json();
+    const genreResponse: any = await delayFetch(genreUrl, { headers });
+    const genreList = await genreResponse.json();
+    const genre = genreList[Math.floor(Math.random() * genreList.length)];
+    const movieUrl = `${baseUrl}/advancedsearch?end_year=2020&genre=${genre}&type=movie&sort=highestrated&page=1`;
+    const movieResponse: any = await delayFetch(movieUrl, { headers });
+    if (!movieResponse.ok) {
+      throw new Error(`Error al buscar las mejores películas de ${genre}: ${movieResponse.status} ${movieResponse.statusText}`);
+    }
+    const movieList = await movieResponse.json();
     // Ordenar los resultados por fecha y devolver los 3 más recientes
-    // let response = await movieList.results
-    //   .sort((a: Movie, b: Movie) => b.released - a.released)
-    //   .slice(0, 3);
-
-    // Devolver la lista de películas.
-    // return { movies: response, genre };
-    return { movies, genre: "action" };
-  } catch (error: Error) {
+    let response = await movieList.results
+      .sort((a: Movie, b: Movie) => b.released - a.released)
+      .slice(0, 3);
+    return { movies: response, genre };
+  } catch (error: any) {
     throw new Error(`Error al obtener las mejores películas: ${error.message}`);
   }
 }
@@ -193,14 +183,9 @@ export async function requestMovie(title: string) {
   };
 
   const url = `https://ott-details.p.rapidapi.com/search?title=${title}&page=1`;
-  const options = {
-    method: "GET",
-    headers,
-  };
-
   try {
-    await waitOneSecond();
-    const response = await fetch(url, options);
+    // return results.results;
+    const response: any = await delayFetch(url, { headers });
     if (!response.ok) {
       throw new Error(
         `Error al buscar la película "${title}": ${response.status} ${response.statusText}`
@@ -209,8 +194,7 @@ export async function requestMovie(title: string) {
     const data = await response.json();
 
     return data.results;
-    // return results.results;
-  } catch (error: Error) {
+  } catch (error: any) {
     throw new Error(`Error al buscar la película "${title}": ${error.message}`);
   }
 }

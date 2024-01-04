@@ -3,39 +3,10 @@ import { Link } from "react-router-dom";
 
 export const meta: V2_MetaFunction = () => {
   return [
-    { title: "New Remix App" },
-    { name: "description", content: "Welcome to Remix!" },
+    { title: "MovieApp - Catalog and rating of movies" },
+    { name: "description", content: "Movie search application to know on which platform it is available, ratings, synopsis, actors and much more... If you don't know what to watch, let yourself be guided by its recommendations." },
   ];
 };
-
-const callouts = [
-  {
-    name: "Desk and Office",
-    description: "Work from home accessories",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg",
-    imageAlt:
-      "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.",
-    href: "#",
-  },
-  {
-    name: "Self-Improvement",
-    description: "Journals and note-taking",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
-    imageAlt:
-      "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.",
-    href: "#",
-  },
-  {
-    name: "Travel",
-    description: "Daily commute essentials",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg",
-    imageAlt: "Collection of four insulated travel bottles on wooden shelf.",
-    href: "#",
-  },
-];
 
 export default function Index() {
   return (

@@ -1,26 +1,26 @@
-.carta-box {
+.card-box {
   position: relative;
   perspective: 1000px;
   background-color: rgb(243, 244, 246);
 }
 
-.carta-box:hover .carta {
+.card-box:hover .card {
     transform: rotateY(180deg);
   }
 
-.carta {
+.card {
   height: inherit;
   transform-style: preserve-3d;
   transition: all 0.5s linear;
 }
 
-.cara {
+.front-card {
   width: 100%;
   height: 100%;
   position: absolute;
   backface-visibility: hidden;
 }
 
-.cara.detras {
+.front-card.back-card {
   transform: rotateY(180deg);
 }
